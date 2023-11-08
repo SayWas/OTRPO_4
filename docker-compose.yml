@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  ftp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ftp
+    env_file:
+      - .env
+    volumes:
+      - ./ftp/:/vsftpd/
+    ports:
+      - "21:21"
+    command: ["python", "/ftp/src/main.py"]
+    networks:
+      - ftp
+
+networks:
+  ftp:
+    external: true
